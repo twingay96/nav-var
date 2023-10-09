@@ -6,6 +6,11 @@ console.log(horizontalMenus);
 let verticalUnderline = document.getElementById("vertical-underline");
 let verticalMenus = document.querySelectorAll("nav:nth-child(2) a");
 
+horizontalUnderline.style.left = horizontalMenus[0].offsetLeft + "px";
+horizontalUnderline.style.width = horizontalMenus[0].offsetWidth + "px";
+horizontalUnderline.style.top = 
+        horizontalMenus[0].offsetTop + horizontalMenus[0].offsetHeight + "px";
+
 horizontalMenus.forEach(menu=>menu.addEventListener("click",(e)=>horizontalIndicator(e)));
 verticalMenus.forEach(menu=>menu.addEventListener("click",(e)=>verticalIndicator(e)));
 
