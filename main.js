@@ -19,6 +19,36 @@ window.addEventListener("resize", () => {
 horizontalMenus.forEach((menu) => {
   menu.addEventListener("click", (e) => {
     horizontalIndicator(e);
+    updateHorizontalUnderline();
+    // 선택한 메뉴 정보를 로컬 스토리지에 저장
+    localStorage.setItem("selectedMenu", e.currentTarget.textContent);
+  });
+});
+
+function setInitialUnderlinePosition() {
+  // 이전에 선택한 메뉴 정보를 로컬 스토리지에서 가져옴
+  const selectedMenu = localStorage.getItem("selectedMenu");
+  console.log("언더라인 초기위치 세팅함수");
+  
+  if (selectedMenu) {
+    // 저장된 메뉴가 있다면 해당 메뉴를 활성화
+    horizontalMenus.forEach((menu) => {
+      if (menu.textContent === selectedMenu) {
+        activeMenu = menu;
+        menu.classList.add("active");
+        firstUpdateHorizontalUnderline();
+      }
+    });
+  } else {
+    // 저장된 메뉴가 없을 경우, 기본적으로 첫 번째 메뉴를 선택
+    activeMenu = horizontalMenus[0];
+    firstUpdateHorizontalUnderline();
+  }
+}
+
+horizontalMenus.forEach((menu) => {
+  menu.addEventListener("click", (e) => {
+    horizontalIndicator(e);
   });
 });
 
@@ -28,14 +58,7 @@ verticalMenus.forEach((menu) =>
   })
 );
 
-function setInitialUnderlinePosition() {
-  // 초기에 선택한 메뉴를 여기에서 설정
-  // 예를 들어, 첫 번째 메뉴를 선택
-  activeMenu = horizontalMenus[0];
 
-  // 언더라인 초기 위치 설정함수 호출
-  firstUpdateHorizontalUnderline();
-}
 // 언더라인 초기위치 설정함수 => 애니메이션 효과 적용X
 function firstUpdateHorizontalUnderline(){
     horizontalUnderline.style.transition = "none";
